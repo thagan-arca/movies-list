@@ -1,4 +1,5 @@
 const express = require('express');
+const { getStoredMovies } = require('./data/movies');
 const app = express();
 
 app.use((req, res) => {
@@ -17,17 +18,42 @@ app.use((req, res, next) => {
   next();
 });
 
-//@desc Get movies
-//@route GET /movies/
-//@access private
-const url = "https://api.themoviedb.org/3/discover/movie";
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${BEARER_TOKEN}`,
-  },
-};
+app.post('/movies', async (req, res) => {
+  const existingMovies = await getStoredMovies();
+  const movieData = req.body;
+  // console.log(movieData);
+  const newMovie = {
+    ...movieData,
+    id: Math.random().toString(),
+  };
+  const updatedMovies = [newMovie, ...existingMovies];
+  await storeMovies(updatedMovies);
+  res.status(201).json({ message: 'Stored new post.', movie: newMovie });
+});
+
+// //@desc Get movies
+// //@route GET /movies/
+// //@access private
+// const url = "https://api.themoviedb.org/3/discover/movie";
+// const options = {
+//   method: "GET",
+//   headers: {
+//     accept: "application/json",
+//     Authorization: `Bearer ${BEARER_TOKEN}`,
+//   },
+// };
+
+// app.get('/movies/:id', async (req, res) => {
+//   const storedMovies = await getStoredMovies();
+//   const post = storedMovies.find((post) => post.id === req.params.id);
+//   res.json({ post });
+// });
+
+app.get('/movies', async (req, res) => {
+  const storedMovies = await getStoredMovies();
+  // await new Promise((resolve, reject) => setTimeout(() => resolve(), 1500)); // Adds a delay in retrieving data in json file
+  res.json({ movies: storedMovies });
+});
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
