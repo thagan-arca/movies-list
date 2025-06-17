@@ -4,11 +4,11 @@ const app = express();
 // // const dotenv = require("dotenv").config();
 
 app.use((req, res) => {
-    res.status(200).send('Hello, world!');
+    res.status(200).send('Backend to retrieve API data and implement middleware for caching and rate limiting.');
 });
 // Start the server
-// const PORT = process.env.REACT_APP_PORT || 8080;
-const PORT = 8080;
+const PORT = process.env.REACT_APP_PORT || 8080;
+// const PORT = 8080;
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
