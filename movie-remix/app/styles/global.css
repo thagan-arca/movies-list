@@ -1,12 +1,12 @@
-/* @font-face {
+@font-face {
   font-family: "baloo";
   src: url("/fonts/baloo/baloo.woff") format("woff");
   font-weight: normal;
   font-style: normal;
-} */
+}
 
 :root {
-  --hs-links: 48 100%;
+  --hs-links: 200 75%;
   --color-foreground: hsl(0, 0%, 100%);
   --color-background: hsl(278, 73%, 19%);
   --color-links: hsl(var(--hs-links) 50%);
