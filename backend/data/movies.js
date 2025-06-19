@@ -18,7 +18,7 @@ async function getStoredMovies() {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (err) {
     console.error("Error fetching data:", err);
@@ -37,6 +37,17 @@ async function getStoredMovies() {
 function storeMovies(movies) {
   return fs.writeFile("movies.json", JSON.stringify({ movies: movies || [] }));
 }
+
+const getMovie = async(req, res) => {
+  const movie = await movies.findbyId(req.params.title);
+  console.log("The request body is:", req.body);
+  
+}
+
+// movies = getStoredMovies();
+// console.log(movies);
+// storeMovies(movies);
+
 
 exports.getStoredMovies = getStoredMovies;
 exports.storeMovies = storeMovies;
