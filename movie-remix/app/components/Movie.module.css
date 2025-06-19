@@ -1,4 +1,4 @@
-.post {
+.movie {
   margin: 1rem 0;
   padding: 1rem;
   background-color: #9c7eee;
@@ -7,11 +7,11 @@
   animation: animate-in 1s ease-out forwards;
 }
 
-.post a {
+.movie a {
   text-decoration: none;
 }
 
-.author {
+.original_title {
   font-size: 0.8rem;
   font-weight: bold;
   color: #543280;
@@ -19,7 +19,7 @@
   text-transform: uppercase;
 }
 
-.text {
+.overview {
   white-space: pre-wrap;
   font-size: 1.25rem;
   margin: 0.25rem 0 0 0;

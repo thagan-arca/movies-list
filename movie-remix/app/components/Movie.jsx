@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 import classes from "./Movie.module.css";
 
 function Movie({ id, original_title, overview }) {
+//   console.log(id, original_title, overview);
   return (
-    <li className={classes.post}>
+    <li className={classes.movie}>
       <Link to={id}>
-        <p className={classes.author}>{original_title}</p>
-        <p className={classes.text}>{overview}</p>
+        <p className={classes.original_title}>{original_title}</p>
+        <p className={classes.overview}>{overview}</p>
       </Link>
     </li>
   );

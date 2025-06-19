@@ -12,8 +12,8 @@ export default function MovieRoute() {
 export async function loader({params}) {
   // console.log('http://localhost:8080/movies/' + params.movieId);
   const response = await fetch('http://localhost:8080/movies/' + params.movieId);
-  console.log(response);
+  //console.log(response);
   const resData = await response.json();
   // console.log(resData)
-  return resData || "ERR";
+  return resData;
 }
