@@ -17,7 +17,7 @@ function MoviesList() {
     )}
     {movies.length === 0 && (
       <div style={{ textAlign: 'center', color: 'white'}}>
-        <h2>There are no posts yet.</h2>
+        <h2>There are no movies yet.</h2>
         <p>Start adding some!</p>
       </div>
     )}

@@ -27,8 +27,7 @@ export default function Movies() {
 
 export async function loader() {
   const response = await fetch("http://localhost:8080/movies");
-  
   const resData = await response.json();
-  console.log(resData.storedMovies);
+  // console.log(resData.storedMovies);
   return resData.storedMovies;
 }

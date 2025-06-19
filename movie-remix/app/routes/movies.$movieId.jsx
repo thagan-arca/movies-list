@@ -8,3 +8,12 @@ export default function MovieRoute() {
     </div>
   );
 }
+
+export async function loader({params}) {
+  // console.log('http://localhost:8080/movies/' + params.movieId);
+  const response = await fetch('http://localhost:8080/movies/' + params.movieId);
+  console.log(response);
+  const resData = await response.json();
+  // console.log(resData)
+  return resData || "ERR";
+}
