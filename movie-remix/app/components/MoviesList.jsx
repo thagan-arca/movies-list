@@ -12,7 +12,7 @@ function MoviesList() {
   // console.log(movies[1][1].id);
   // console.log(typeof movies)
 
-  // console.log(Object.keys(movies))
+  console.log(movies)
 
   // Object.keys(movies.results).forEach(function (key) {
   //   // console.log(movies.results[movie]);
@@ -29,25 +29,25 @@ function MoviesList() {
       {Object.keys(movies.results).length > 0 && (
         <ul className={classes.movies}>
           {/* <Post author={enteredAuthor} body={enteredBody} /> */}
-          {Object.keys(movies.results).forEach(function (key) {
+          {/* {Object.keys(movies.results).forEach(function (key) {
             <Movie
               key={movies.results[key].id}
               id={movies.results[key].id}
               original_title={movies.results[key].original_title}
               overview={movies.results[key].overview}
             />
-          })}
+          })} */}
 
-          {<Movie key={ 2 } id={ 2 } original_title={ "TITLE" } overview={ "OVERVIEW" }/>}
+          {/* {<Movie key={ 2 } id={ 2 } original_title={ "TITLE" } overview={ "OVERVIEW" }/>} */}
 
-          {/* {movies.map((movie) => (
+          {movies.results.map((movie) => (
             <Movie
               key={movie.id}
               id={movie.id}
               original_title={movie.original_title}
               overview={movie.overview}
             />
-          ))} */}
+          ))}
           {/* <Post author="Jane Smith" body="Here's another post for you." /> */}
         </ul>
       )}
