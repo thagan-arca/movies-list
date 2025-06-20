@@ -48,8 +48,8 @@ app.get("/movies/:id", async (req, res) => {
 });
 
 app.get("/search/:title", async (req, res) => {
-    const movie = await getMovie(req, res);
-    res.json({ movie });
+    const movies = await getMovie(req, res);
+    res.json({ movies });
     // res.json({
     //     message: `Search for movie which includes ${req.params.title}`,
     // });

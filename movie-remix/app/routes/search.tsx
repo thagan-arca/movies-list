@@ -1,8 +1,20 @@
 // import { Outlet } from "@remix-run/react";
 
-import { Outlet } from "@remix-run/react";
+import { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node";
+import { Outlet, useLocation } from "@remix-run/react";
 
 function SearchRoute() {
+    const location = useLocation();
+    console.log(location.search);
+    //const queryParams = new URLSearchParams(location.search);
+
+    // if (queryParams) {
+    //     console.log(queryParams);
+    // } else {
+    //     console.log("NONE");
+    // }
+
+    // console.log("QUERY PARAMS:", queryParams);
     return (
         <div>
             <Outlet />
@@ -10,3 +22,18 @@ function SearchRoute() {
     );
 }
 export default SearchRoute;
+
+export async function loader({ params, request }: LoaderFunctionArgs) {
+    const queryParams = new URL(request.url).searchParams;
+    console.log(queryParams.get("title"));
+    console.log(queryParams);
+    console.log("Title:", params.title);
+    const response = await fetch(
+        "http://localhost:8080/search/" + params.title
+    );
+    const resData = await response.json();
+    // console.log(resData.movie);
+    //console.log(resData.movies);
+    //console.log(typeof resData.movies);
+    return "Test";
+}
