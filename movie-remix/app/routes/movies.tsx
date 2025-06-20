@@ -1,5 +1,5 @@
 import type { LinksFunction } from "@remix-run/node";
-import { Links, Outlet, Route, Routes } from "@remix-run/react";
+import { Links } from "@remix-run/react";
 
 import MoviesList from "../components/MoviesList";
 import stylesUrl from "../styles/index.css";

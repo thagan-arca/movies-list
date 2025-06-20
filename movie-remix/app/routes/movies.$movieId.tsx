@@ -9,9 +9,10 @@ export const links: LinksFunction = () => [
     { rel: "stylesheet", href: stylesUrl },
 ];
 
+type MovieProps = { id: string; original_title: string; overview: string };
 function MovieRoute() {
     // console.log("TEST");
-    const data = useLoaderData() as { movie: any[] };
+    const data = useLoaderData() as { movie: MovieProps[] };
     const movie = data.movie[1];
     // movie = movie.movie[1];
     return (
