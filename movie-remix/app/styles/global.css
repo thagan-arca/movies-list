@@ -6,9 +6,9 @@
 }
 
 :root {
-    --hs-links: 200 75%;
-    --color-foreground: hsl(0, 0%, 100%);
-    --color-background: hsl(278, 73%, 19%);
+    --hs-links: 0 0%;
+    --color-foreground: hsl(0, 0%, 50%);
+    /* --color-background: hsl(278, 73%, 19%); */
     --color-links: hsl(var(--hs-links) 50%);
     --color-links-hover: hsl(var(--hs-links) 45%);
     --color-border: hsl(277, 85%, 38%);

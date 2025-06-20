@@ -1,20 +1,28 @@
 import type { LinksFunction } from "@remix-run/node";
-import { Links } from "@remix-run/react";
+import { Links, Outlet, Route, Routes } from "@remix-run/react";
 
 import MoviesList from "../components/MoviesList";
 import stylesUrl from "../styles/index.css";
+// import MovieRoute from "./movies.$movieId";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: stylesUrl },
 ];
 
-export default function Movies() {
+function MoviesRoute() {
     return (
         <div>
-            <h1>Movies</h1>
+            <header className="movies-header">
+                <h1>Movies</h1>
+            </header>
             <Links />
             <main>
+                {/* <Outlet /> */}
                 <MoviesList />
+                {/* <Routes>
+                    <Route path="/movies" element={<MoviesList />} />
+                    <Route path="/movies/:id" element={<Outlet />} />
+                </Routes> */}
             </main>
         </div>
     );
@@ -22,7 +30,7 @@ export default function Movies() {
 
 // import { Outlet } from 'react-router-dom';
 
-// export default Movies;
+export default MoviesRoute;
 
 export async function loader() {
     const response = await fetch("http://localhost:8080/movies");
