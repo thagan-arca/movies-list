@@ -6,12 +6,12 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-  // Attach CORS headers
-  // Required when using a detached backend (that runs on a different domain)
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
+    // Attach CORS headers
+    // Required when using a detached backend (that runs on a different domain)
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    next();
 });
 
 // app.use((req, res) => {
@@ -22,31 +22,35 @@ const PORT = process.env.REACT_APP_PORT || 8080;
 // const PORT = 8080;
 
 app.get("/", (req, res, next) => {
-  res.status(200).json({ message: "This is the home page" });
+    res.status(200).json({ message: "This is the home page" });
 });
 
 app.get("/movies", async (req, res) => {
-  const storedMovies = await getStoredMovies();
-  // await new Promise((resolve, reject) => setTimeout(() => resolve(), 1500)); // Adds a delay in retrieving data in json file
-  res.json({ storedMovies });
+    const storedMovies = await getStoredMovies();
+    // await new Promise((resolve, reject) => setTimeout(() => resolve(), 1500)); // Adds a delay in retrieving data in json file
+    res.json({ storedMovies });
 });
 
 app.get("/movies/:id", async (req, res) => {
-  const storedMovies = await getStoredMovies();
-  // console.log("Stored movies:", Object.entries(storedMovies.results));
-  const movie = Object.entries(storedMovies.results).find(([key, movie]) => movie.id === parseInt(req.params.id)); // note === needs an int here
-  // console.log("Movie is:", movie);
-  // const movie = Object.values(storedMovies).find(
-  //   (movie) => movie.id === req.params.id
-  // );
-  // console.log(movie)
-  // const movie = storedMovies.find((movie) => movie.id === req.params.id);
-  res.json({ movie });
-  // res.json({ message: `Get movie with ID ${req.params.id}`})
+    const storedMovies = await getStoredMovies();
+    // console.log("Stored movies:", Object.entries(storedMovies.results));
+    const movie = Object.entries(storedMovies.results).find(
+        ([key, movie]) => movie.id === parseInt(req.params.id)
+    ); // note === needs an int here
+    // console.log("Movie is:", movie);
+    // const movie = Object.values(storedMovies).find(
+    //   (movie) => movie.id === req.params.id
+    // );
+    // console.log(movie)
+    // const movie = storedMovies.find((movie) => movie.id === req.params.id);
+    res.json({ movie });
+    // res.json({ message: `Get movie with ID ${req.params.id}`})
 });
 
 app.get("/search/:title", (req, res) => {
-  res.json({ message: `Search for movie which includes ${req.params.title}` });
+    res.json({
+        message: `Search for movie which includes ${req.params.title}`,
+    });
 });
 
 // app.post('/movies', async (req, res) => {
@@ -90,6 +94,6 @@ app.get("/search/:title", (req, res) => {
 // });
 
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-  console.log("Press Ctrl+C to quit.");
+    console.log(`App listening on port ${PORT}`);
+    console.log("Press Ctrl+C to quit.");
 });

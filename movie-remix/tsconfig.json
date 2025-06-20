@@ -8,7 +8,7 @@
         "**/.client/**/*.tsx",
         "../backend/app.js",
         "app/components/MoviesList.tsx",
-        "app/routes/movies.$movieId.tsx"
+        "app/routes/movies._.$movieId.tsx"
     ],
     "compilerOptions": {
         "lib": ["DOM", "DOM.Iterable", "ES2022"],

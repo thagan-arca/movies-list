@@ -1,5 +1,6 @@
 import { redirect, useLoaderData } from "react-router";
 import type { ActionFunctionArgs, LinksFunction } from "@remix-run/node";
+// import { useActionData } from "@remix-run/react";
 import Movie from "../components/Movie";
 
 import stylesUrl from "../styles/index.css";
@@ -11,25 +12,31 @@ export const links: LinksFunction = () => [
 
 type MovieProps = { id: string; original_title: string; overview: string };
 function MovieRoute() {
+    // const actionData = useActionData<typeof action>();
     // console.log("TEST");
     const data = useLoaderData() as { movie: MovieProps[] };
     const movie = data.movie[1];
     // movie = movie.movie[1];
     return (
-        <div>
-            {/* <Links /> */}
-            <Movie
-                key={movie.id}
-                id={movie.id}
-                original_title={movie.original_title}
-                overview={movie.overview}
-            />
-        </div>
+        <>
+            <header className="movie-header">
+                <h1>{movie.original_title}</h1>
+            </header>
+            <div>
+                {/* <Links /> */}
+                <Movie
+                    key={movie.id}
+                    id={movie.id}
+                    original_title={movie.original_title}
+                    overview={movie.overview}
+                />
+            </div>
+        </>
     );
 }
 
 export const action = async ({ params }: ActionFunctionArgs) => {
-    return redirect(`/jokes/${params.id}`);
+    return redirect(`/movies/${params.id}`);
 };
 
 export async function loader({ params }: { params: { movieId: string } }) {
