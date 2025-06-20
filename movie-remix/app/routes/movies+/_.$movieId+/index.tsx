@@ -1,9 +1,9 @@
 import { redirect, useLoaderData } from "react-router";
 import type { ActionFunctionArgs, LinksFunction } from "@remix-run/node";
 // import { useActionData } from "@remix-run/react";
-import Movie from "../components/Movie";
+import Movie from "../../../components/Movie";
 
-import stylesUrl from "../styles/index.css";
+import stylesUrl from "../../../styles/index.css";
 // import MovieRoute from "./movies.$movieId";
 
 export const links: LinksFunction = () => [

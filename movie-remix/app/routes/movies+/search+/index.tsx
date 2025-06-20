@@ -1,4 +1,4 @@
-import Modal from "../components/Modal";
+import Modal from "../../../components/Modal";
 import { Link, Form } from "react-router-dom";
 
 import classes from "./search.module.css";

@@ -25,14 +25,11 @@ export default SearchRoute;
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
     const queryParams = new URL(request.url).searchParams;
-    console.log(queryParams.get("title"));
-    console.log(queryParams);
     console.log("Title:", params.title);
-    const response = await fetch(
-        "http://localhost:8080/search/" + params.title
-    );
+    const title = queryParams.get("title");
+    const response = await fetch("http://localhost:8080/search/" + title);
     const resData = await response.json();
-    // console.log(resData.movie);
+    console.log(resData.movie);
     //console.log(resData.movies);
     //console.log(typeof resData.movies);
     return "Test";

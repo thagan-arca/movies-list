@@ -11,12 +11,12 @@ function Modal({ children }) {
     }
 
     return (
-        <>
+        <div className="fixed top-0">
             <div className={classes.backdrop} onClick={closeHandler} />
             <dialog open className={classes.modal}>
                 {children}
             </dialog>
-        </>
+        </div>
     );
 }
 

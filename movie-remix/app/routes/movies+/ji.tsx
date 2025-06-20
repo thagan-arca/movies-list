@@ -1,8 +1,8 @@
 import type { LinksFunction } from "@remix-run/node";
 // import { Links, Outlet } from "@remix-run/react";
 
-import MoviesList from "../components/MoviesList";
-import stylesUrl from "../styles/index.css";
+import MoviesList from "../../components/MoviesList";
+import stylesUrl from "../../styles/index.css";
 // import MovieRoute from "./movies.$movieId";
 
 export const links: LinksFunction = () => [

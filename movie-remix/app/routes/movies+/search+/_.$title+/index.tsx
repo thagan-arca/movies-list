@@ -1,7 +1,7 @@
 import type { LinksFunction } from "@remix-run/node";
 // import { Links, Outlet } from "@remix-run/react";
 
-import stylesUrl from "../styles/index.css";
+import stylesUrl from "../../../../styles/index.css";
 import { useLoaderData } from "react-router";
 import { useLocation } from "react-router-dom";
 
