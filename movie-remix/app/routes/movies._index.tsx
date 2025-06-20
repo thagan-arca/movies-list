@@ -13,7 +13,7 @@ function MoviesRoute() {
     return (
         <div>
             <header className="movies-header">
-                <h1>Movies</h1>
+                <h1>Popular Movies</h1>
             </header>
             <main>
                 <MoviesList />

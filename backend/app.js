@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { getStoredMovies } = require("./data/movies");
+const { getStoredMovies, getMovie } = require("./data/movies");
 const app = express();
 
 app.use(bodyParser.json());
@@ -47,10 +47,12 @@ app.get("/movies/:id", async (req, res) => {
     // res.json({ message: `Get movie with ID ${req.params.id}`})
 });
 
-app.get("/search/:title", (req, res) => {
-    res.json({
-        message: `Search for movie which includes ${req.params.title}`,
-    });
+app.get("/search/:title", async (req, res) => {
+    const movie = await getMovie(req, res);
+    res.json({ movie });
+    // res.json({
+    //     message: `Search for movie which includes ${req.params.title}`,
+    // });
 });
 
 // app.post('/movies', async (req, res) => {
