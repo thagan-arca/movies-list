@@ -1,16 +1,7 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
-// import { Links, Outlet } from "@remix-run/react";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 
 import MoviesList from "../../components/MoviesList";
-import stylesUrl from "../../styles/index.css";
 import { Outlet, Link, Form, useLocation } from "@remix-run/react";
-// import MovieRoute from "./movies.$movieId";
-
-import classes from "./search+/search.module.css";
-
-export const links: LinksFunction = () => [
-    { rel: "stylesheet", href: stylesUrl },
-];
 
 function MoviesRoute() {
     const location = useLocation();
@@ -19,38 +10,46 @@ function MoviesRoute() {
 
     return (
         <div>
-            <header className={classes.moviesHeader}>
-                <Link to=".." style={{ textDecoration: "none" }}>
-                    <h1>Home</h1>
+            <header className="flex items-center justify-between gap-10 sticky top-0 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
+                <Link to=".." className="no-underline mx-24">
+                    <h1 className="text-4xl/10">Home</h1>
                 </Link>
-                <h1>
+                <h1 className="text-4xl/10">
                     {searchQuery
                         ? `Movies Containing '${searchQuery}'`
                         : "Popular Movies"}
                 </h1>
 
-                <Form method="get" className={classes.form}>
+                <Form method="get" className="p-4 w-72 block bg-inherit">
                     {/* <p>
                     <label htmlFor="body">Text</label>
                     <textarea id="body" name="body" required rows={3} />
                 </p> */}
                     <p>
                         <label htmlFor="searchQuery">Search:</label>
-                        <input
-                            type="text"
-                            name="searchQuery"
-                            required
-                            // placeholder="&#128270;"
-                        />
+                        <div className="block bg-white relative w-52">
+                            <input
+                                type="text"
+                                name="searchQuery"
+                                required
+                                className="text-black"
+                                // placeholder="&#128270;"
+                            />
 
-                        <button type="submit" className={classes.searchButton}>
-                            <i>&#128270;</i>
-                        </button>
+                            <button
+                                type="submit"
+                                className="bg-transparent border-none cursor-pointer inline-block text-lg absolute top-auto z-2"
+                            >
+                                <i>&#128270;</i>
+                            </button>
+                        </div>
                     </p>
-                    {/* <p className={classes.actions}>
+                    <p>
                         <Link to="/movies" type="button">
                             Cancel
                         </Link>
+                    </p>
+                    {/*
                         <button>Submit</button>
                     </p> */}
                 </Form>

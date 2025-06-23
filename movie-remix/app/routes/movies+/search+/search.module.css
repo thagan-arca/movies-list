@@ -73,7 +73,7 @@
     background-color: var(--color-background);
 }
 
-.searchButton {
+.form .searchButton {
     background: transparent;
     border: none;
     cursor: pointer;
