@@ -20,8 +20,8 @@ function MoviesRoute() {
     return (
         <div>
             <header className={classes.moviesHeader}>
-                <Link to=".." className="no-underline text-xl">
-                    <h1 className="no-underline text-xl">Home</h1>
+                <Link to=".." style={{ textDecoration: "none" }}>
+                    <h1>Home</h1>
                 </Link>
                 <h1>
                     {searchQuery
