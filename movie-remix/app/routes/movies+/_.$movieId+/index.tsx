@@ -1,9 +1,6 @@
 import { redirect, useLoaderData } from "react-router";
 import type { ActionFunctionArgs } from "@remix-run/node";
-// import { useActionData } from "@remix-run/react";
 import Movie from "../../../components/Movie";
-
-// import MovieRoute from "./movies.$movieId";
 
 type MovieProps = {
     id: string;
@@ -13,14 +10,11 @@ type MovieProps = {
     release_date: string;
 };
 function MovieRoute() {
-    // const actionData = useActionData<typeof action>();
-    // console.log("TEST");
     const data = useLoaderData() as { movie: MovieProps[] };
     const movie = data.movie[1];
-    // movie = movie.movie[1];
     return (
         <>
-            <header className="movie-header">
+            <header className="movie-header font-body">
                 <h1>{movie.original_title}</h1>
             </header>
             <div>

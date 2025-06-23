@@ -30,12 +30,12 @@ function MoviesRoute() {
                 </p> */}
                     <p>
                         <label htmlFor="searchQuery">Search:</label>
-                        <div className="block bg-white relative w-52">
+                        <div className="block bg-white relative w-52 rounded-md">
                             <input
                                 type="text"
                                 name="searchQuery"
                                 required
-                                className="text-black"
+                                className="text-black rounded-md"
                                 // placeholder="&#128270;"
                             />
 
@@ -69,8 +69,6 @@ function MoviesRoute() {
     );
 }
 
-// import { Outlet } from 'react-router-dom';
-
 export default MoviesRoute;
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -81,15 +79,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
             "http://localhost:8080/search/" + searchQuery
         );
         const resData = await response.json();
-        // const resData = await response.json();
-        // console.log(resData.movie);
-        console.log(resData.movies);
-        //console.log(typeof resData.movies);
         return resData.movies;
     }
 
     const response = await fetch("http://localhost:8080/movies");
     const resData = await response.json();
-    // console.log(resData.storedMovies);
     return resData.storedMovies;
 }
