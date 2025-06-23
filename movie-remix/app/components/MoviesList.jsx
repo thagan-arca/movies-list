@@ -15,11 +15,12 @@ function MoviesList() {
     // console.log(movies);
 
     // Object.keys(movies.results).forEach(function (key) {
-    //   // console.log(movies.results[movie]);
-    //   console.log("ID:", movies.results[key].id);
-    //   console.log("ID:", movies.results[key].id);
-    //   console.log("Title:", movies.results[key].original_title);
-    //   console.log("Overview:", movies.results[key].overview);
+    //     // console.log(movies.results[movie]);
+    //     console.log("ID:", movies.results[key].id);
+    //     console.log("ID:", movies.results[key].id);
+    //     console.log("Title:", movies.results[key].original_title);
+    //     console.log("Overview:", movies.results[key].overview);
+    //     console.log("Image:", movies.results[key].image);
     // });
 
     // console.log(Object.keys(movies.results).length);
@@ -44,8 +45,16 @@ function MoviesList() {
                         <Movie
                             key={movie.id}
                             id={movie.id}
+                            // overview={movie.overview}
+                            image={
+                                <img
+                                    height={400}
+                                    alt="TEST"
+                                    src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
+                                />
+                            }
                             original_title={movie.original_title}
-                            overview={movie.overview}
+                            release_date={movie.release_date}
                         />
                     ))}
                     {/* <Post author="Jane Smith" body="Here's another post for you." /> */}

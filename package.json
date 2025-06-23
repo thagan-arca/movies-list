@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@react-router/remix-routes-option-adapter": "^7.6.2",
+    "remix-flat-routes": "^0.8.5"
+  }
+}

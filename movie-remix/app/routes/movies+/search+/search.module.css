@@ -1,5 +1,5 @@
 .form {
-    background-color: #4d4d4d;
+    /* background-color: #4d4d4d; */
     padding: 1rem;
     width: 20rem;
     /* margin: 2rem auto;
@@ -56,4 +56,11 @@
 
 .actions a:hover {
     color: #858585;
+}
+
+.moviesHeader {
+    display: flex;
+    align-items: center;
+    /* flex-direction: row; */
+    justify-content: space-between;
 }

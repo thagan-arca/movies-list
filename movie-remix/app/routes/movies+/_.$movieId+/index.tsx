@@ -10,7 +10,13 @@ export const links: LinksFunction = () => [
     { rel: "stylesheet", href: stylesUrl },
 ];
 
-type MovieProps = { id: string; original_title: string; overview: string };
+type MovieProps = {
+    id: string;
+    original_title: string;
+    overview: string;
+    poster_path: string;
+    release_date: string;
+};
 function MovieRoute() {
     // const actionData = useActionData<typeof action>();
     // console.log("TEST");
@@ -29,6 +35,14 @@ function MovieRoute() {
                     id={movie.id}
                     original_title={movie.original_title}
                     overview={movie.overview}
+                    image={
+                        <img
+                            height={400}
+                            alt="TEST"
+                            src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
+                        />
+                    }
+                    release_date={movie.release_date}
                 />
             </div>
         </>

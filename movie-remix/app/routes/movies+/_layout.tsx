@@ -19,7 +19,10 @@ function MoviesRoute() {
 
     return (
         <div>
-            <header className="movies-header">
+            <header className={classes.moviesHeader}>
+                <Link to=".." className="no-underline text-xl">
+                    <h1 className="no-underline text-xl">Home</h1>
+                </Link>
                 <h1>
                     {searchQuery
                         ? `Movies Containing '${searchQuery}'`
@@ -32,11 +35,11 @@ function MoviesRoute() {
                     <textarea id="body" name="body" required rows={3} />
                 </p> */}
                     <p>
-                        <label htmlFor="searchQuery">Movie name:</label>
+                        <label htmlFor="searchQuery">Search:</label>
                         <input type="text" name="searchQuery" required />
                     </p>
                     <p className={classes.actions}>
-                        <Link to=".." type="button">
+                        <Link to="/movies" type="button">
                             Cancel
                         </Link>
                         <button>Submit</button>
@@ -46,10 +49,6 @@ function MoviesRoute() {
             <main>
                 <MoviesList />
                 <Outlet />
-                {/* <Routes>
-                    <Route path="/movies" element={<MoviesList />} />
-                    <Route path="/movies/:id" element={<Outlet />} />
-                </Routes> */}
             </main>
         </div>
     );
@@ -59,8 +58,7 @@ function MoviesRoute() {
 
 export default MoviesRoute;
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-    console.log("Title:", params.title);
+export async function loader({ request }: LoaderFunctionArgs) {
     const queryParams = new URL(request.url).searchParams;
     const searchQuery = queryParams.get("searchQuery");
     if (searchQuery) {
@@ -68,10 +66,11 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
             "http://localhost:8080/search/" + searchQuery
         );
         const resData = await response.json();
-        console.log(resData.movie);
-        //console.log(resData.movies);
+        // const resData = await response.json();
+        // console.log(resData.movie);
+        console.log(resData.movies);
         //console.log(typeof resData.movies);
-        return resData.movie;
+        return resData.movies;
     }
 
     const response = await fetch("http://localhost:8080/movies");
