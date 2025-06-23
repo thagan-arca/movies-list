@@ -11,7 +11,10 @@ function MoviesRoute() {
     return (
         <div>
             <header className="flex items-center justify-between gap-10 sticky top-0 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
-                <Link to=".." className="no-underline mx-24">
+                <Link
+                    to=".."
+                    className="no-underline mx-24  text-neutral-400 hover:text-neutral-500"
+                >
                     <h1 className="text-4xl/10">Home</h1>
                 </Link>
                 <h1 className="text-4xl/10">
@@ -45,7 +48,11 @@ function MoviesRoute() {
                         </div>
                     </p>
                     <p>
-                        <Link to="/movies" type="button">
+                        <Link
+                            to="/movies"
+                            type="button"
+                            className="text-neutral-400 hover:text-neutral-500 "
+                        >
                             Cancel
                         </Link>
                     </p>
