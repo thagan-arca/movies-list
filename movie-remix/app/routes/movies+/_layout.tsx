@@ -36,14 +36,23 @@ function MoviesRoute() {
                 </p> */}
                     <p>
                         <label htmlFor="searchQuery">Search:</label>
-                        <input type="text" name="searchQuery" required />
+                        <input
+                            type="text"
+                            name="searchQuery"
+                            required
+                            // placeholder="&#128270;"
+                        />
+
+                        <button type="submit" className={classes.searchButton}>
+                            <i>&#128270;</i>
+                        </button>
                     </p>
-                    <p className={classes.actions}>
+                    {/* <p className={classes.actions}>
                         <Link to="/movies" type="button">
                             Cancel
                         </Link>
                         <button>Submit</button>
-                    </p>
+                    </p> */}
                 </Form>
             </header>
             <main>
