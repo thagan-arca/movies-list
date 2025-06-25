@@ -1,6 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { getStoredMovies, getMovie } = require("./data/movies");
+const {
+    getStoredMovies,
+    getMovie,
+    searchMovie,
+    storeMovies,
+} = require("./data/movies");
 const app = express();
 
 app.use(bodyParser.json());
@@ -26,29 +31,41 @@ app.get("/", (req, res, next) => {
 });
 
 app.get("/movies", async (req, res) => {
-    const storedMovies = await getStoredMovies();
+    const storedMovies = await getStoredMovies(req, res);
     // await new Promise((resolve, reject) => setTimeout(() => resolve(), 1500)); // Adds a delay in retrieving data in json file
     res.json({ storedMovies });
 });
 
 app.get("/movies/:id", async (req, res) => {
-    const storedMovies = await getStoredMovies();
+    const storedMovies = await getStoredMovies(req, res);
     // console.log("Stored movies:", Object.entries(storedMovies.results));
-    const movie = Object.entries(storedMovies.results).find(
-        ([key, movie]) => movie.id === parseInt(req.params.id)
-    ); // note === needs an int here
-    // console.log("Movie is:", movie);
+    try {
+        // checks local DB for data
+        const movie = Object.entries(storedMovies.results).find(
+            ([movie]) => movie.id === parseInt(req.params.id)
+        );
+        // console.log("Movie:", movie);
+        if (movie === undefined) {
+            throw new Error("Movie is not available in local DB.");
+        } // note === needs an int here
+        res.json({ movie });
+    } catch (e) {
+        // console.log("TEST THROWN ERROR");
+        const movie = await getMovie(req, res);
+        // console.log("Movie has been assigned in catch: " + movie);
+        res.json({ movie });
+    }
     // const movie = Object.values(storedMovies).find(
     //   (movie) => movie.id === req.params.id
     // );
     // console.log(movie)
     // const movie = storedMovies.find((movie) => movie.id === req.params.id);
-    res.json({ movie });
+    // res.json({ movie });
     // res.json({ message: `Get movie with ID ${req.params.id}`})
 });
 
 app.get("/search/:title", async (req, res) => {
-    const movies = await getMovie(req, res);
+    const movies = await searchMovie(req, res);
     res.json({ movies });
     // res.json({
     //     message: `Search for movie which includes ${req.params.title}`,

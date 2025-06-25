@@ -7,13 +7,14 @@ function MoviesRoute() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const searchQuery = queryParams.get("searchQuery");
+    const page: number = Number(queryParams.get("page"));
 
     return (
         <div className="font-body">
-            <header className="flex items-center justify-between gap-10 sticky top-0 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
+            <header className="grid grid-cols-3 justify-items-center items-center justify-between gap-10 sticky top-0 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
                 <Link
                     to=".."
-                    className="no-underline mx-24  text-neutral-400 hover:text-neutral-500"
+                    className="mx-24 no-underline text-neutral-400 hover:text-neutral-500 justify-self-start"
                 >
                     <h1 className="text-4xl/10">Home</h1>
                 </Link>
@@ -23,14 +24,17 @@ function MoviesRoute() {
                         : "Popular Movies"}
                 </h1>
 
-                <Form method="get" className="p-4 w-72 block bg-inherit">
+                <Form
+                    method="get"
+                    className="p-4 w-72 block bg-inherit justify-self-end"
+                >
                     {/* <p>
                     <label htmlFor="body">Text</label>
                     <textarea id="body" name="body" required rows={3} />
                 </p> */}
                     <p>
                         <label htmlFor="searchQuery">Search:</label>
-                        <div className="block bg-white relative w-52 rounded-md">
+                        <div className="block bg-white relative w-48 rounded-md">
                             <input
                                 type="text"
                                 name="searchQuery"
@@ -65,6 +69,14 @@ function MoviesRoute() {
                 <MoviesList />
                 <Outlet />
             </main>
+            <footer>
+                <Link
+                    to={`/movies?page=${page + 1}`}
+                    className="flex justify-self-end"
+                >
+                    Next Page
+                </Link>
+            </footer>
         </div>
     );
 }

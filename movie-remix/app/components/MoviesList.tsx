@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation } from "react-router-dom";
 
 import Movie from "./Movie";
 
@@ -12,6 +12,17 @@ type MoviesProps = {
 };
 function MoviesList() {
     const data = useLoaderData() as { results: MoviesProps[] };
+    console.log("DATA:", data);
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const searchQuery = queryParams.get("searchQuery");
+    const page: number = Number(queryParams.get("page"));
+
+    if (page != 1 && !searchQuery) {
+        console.log("This page should have other movies displayed.");
+        // const newData = useLoaderData();
+        // const movies = data
+    }
     // console.log(data.results);
     const movies = data.results; // New fetch method
     // console.log(movies);
@@ -29,7 +40,7 @@ function MoviesList() {
                             id={movie.id}
                             image={
                                 <img
-                                    height={400}
+                                    // width={400}
                                     alt="TEST"
                                     src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
                                 />

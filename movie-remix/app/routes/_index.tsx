@@ -14,7 +14,9 @@ export default function IndexRoute() {
                     <nav>
                         <ul className="flex gap-4 text-lg text-neutral-400">
                             <li className="hover:decoration-dashed hover:decoration-1 hover:underline hover:text-neutral-500">
-                                <Link to="movies">View Popular Movies</Link>
+                                <Link to="movies?page=1">
+                                    View Popular Movies
+                                </Link>
                             </li>
                             <li className="hover:decoration-dashed hover:decoration-1 hover:underline hover:text-neutral-500">
                                 <Link to="movies">Search for Movie</Link>

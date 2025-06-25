@@ -23,7 +23,7 @@ function Movie({
                 "bg-[hsl(0_0%_10%)] rounded-lg shadow-normal animate-entry list-none my-4 mx-auto p-4 grid gap-4 grid-cols-1 justify-center w-[25rem]"
             }
         >
-            <Link to={id} className="no-underline">
+            <Link to={`/movies/${id}`} className="no-underline">
                 <p className="justify-center">{image}</p>
                 <p className="text-xl text-[#dddddd] m-0 uppercase font-body mt-3">
                     {original_title}
