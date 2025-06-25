@@ -32,9 +32,9 @@ function MoviesRoute() {
                     <label htmlFor="body">Text</label>
                     <textarea id="body" name="body" required rows={3} />
                 </p> */}
-                    <p>
-                        <label htmlFor="searchQuery">Search:</label>
-                        <div className="block bg-white relative w-48 rounded-md">
+                    <label htmlFor="searchQuery">Search:</label>
+                    <div className="flex">
+                        <div className="relative">
                             <input
                                 type="text"
                                 name="searchQuery"
@@ -45,27 +45,25 @@ function MoviesRoute() {
 
                             <button
                                 type="submit"
-                                className="bg-transparent border-none cursor-pointer inline-block text-lg absolute top-auto z-2"
+                                className="bg-transparent border-none cursor-pointer absolute right-2 z-2"
                             >
                                 <i>&#128270;</i>
                             </button>
                         </div>
-                    </p>
-                    <p>
-                        <Link
-                            to="/movies"
-                            type="button"
-                            className="text-neutral-400 hover:text-neutral-500 "
-                        >
-                            Cancel
-                        </Link>
-                    </p>
+                    </div>
+                    <Link
+                        to="/movies"
+                        type="button"
+                        className="text-neutral-400 hover:text-neutral-500 "
+                    >
+                        Cancel
+                    </Link>
                     {/*
                         <button>Submit</button>
                     </p> */}
                 </Form>
             </header>
-            <main>
+            <main className="overflow-x-hidden border border-red-500">
                 <MoviesList />
                 <Outlet />
             </main>
@@ -86,6 +84,7 @@ export default MoviesRoute;
 export async function loader({ request }: LoaderFunctionArgs) {
     const queryParams = new URL(request.url).searchParams;
     const searchQuery = queryParams.get("searchQuery");
+    const page: number = Number(queryParams.get("page"));
     if (searchQuery) {
         const response = await fetch(
             "http://localhost:8080/search/" + searchQuery
@@ -94,7 +93,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         return resData.movies;
     }
 
-    const response = await fetch("http://localhost:8080/movies");
+    const response = await fetch(`http://localhost:8080/movies?page=${page}`);
     const resData = await response.json();
     return resData.storedMovies;
 }

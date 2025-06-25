@@ -19,7 +19,7 @@ export default function App() {
                 <title>TMDB Movies Project</title>
                 <Links />
             </head>
-            <body className="w-screen h-screen">
+            <body className="w-screen h-screen overflow-x-hidden">
                 <Outlet />
                 <LiveReload />
             </body>

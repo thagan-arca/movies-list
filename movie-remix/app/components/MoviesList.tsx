@@ -33,7 +33,7 @@ function MoviesList() {
     return (
         <>
             {Object.keys(movies).length > 0 && (
-                <ul className="list-none max-w-7xl mx-auto my-4 py-4 px-0 grid gap-4 grid-cols-3 justify-center">
+                <ul className="list-none w-full mx-auto my-4 py-4 px-0 grid gap-4 grid-cols-3 justify-center">
                     {movies.map((movie) => (
                         <Movie
                             key={movie.id}

@@ -2,7 +2,7 @@ import { redirect, useLoaderData } from "react-router";
 import type { ActionFunctionArgs } from "@remix-run/node";
 // import Movie from "../../../components/Movie";
 import { Link } from "react-router-dom";
-// import Modal from "../../../components/Modal";
+import Modal from "../../../components/Modal";
 
 type MovieProps = {
     id: string;
@@ -16,10 +16,10 @@ function MovieRoute() {
     console.log("Data:", data);
     const movie = data.movie;
     return (
-        <>
-            <header className="grid justify-items-center grid-cols-3 gap-0 sticky top-0 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl font-body p-4">
+        <Modal>
+            <header className="grid justify-items-center grid-cols-3 gap-0 sticky top-0 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl font-body p-4 w-screen">
                 <Link
-                    to="/movies/"
+                    to="/movies?page=1"
                     className="no-underline mx-24  text-neutral-400 hover:text-neutral-500 mr-auto"
                 >
                     <h1 className="text-4xl/10">Back</h1>
@@ -51,7 +51,7 @@ function MovieRoute() {
                     </div>
                 </div>
             </div>
-        </>
+        </Modal>
     );
 }
 

@@ -5,12 +5,15 @@ const BEARER_TOKEN = process.env.BEARER_TOKEN || "No Key";
 // console.log(BEARER_TOKEN);
 
 const getStoredMovies = async (req, res) => {
-    var url = "https://api.themoviedb.org/3/discover/movie";
-    if (req.params.page) {
-        console.log(req.params.page);
-        url =
-            "https://api.themoviedb.org/3/discover/movie?page=" +
-            req.params.page; // needs updated to retrieve all or each time a new page is loaded the next page on TMDB API is fetched
+    let url = "https://api.themoviedb.org/3/discover/movie";
+    // console.log(req);
+    const queryParams = new URL("https://localhost/" + req.originalUrl)
+        .searchParams;
+    const page = Number(queryParams.get("page"));
+    console.log(page);
+    if (page) {
+        // console.log(req.params.page);
+        url = "https://api.themoviedb.org/3/discover/movie?page=" + page; // needs updated to retrieve all or each time a new page is loaded the next page on TMDB API is fetched
     }
 
     const options = {
