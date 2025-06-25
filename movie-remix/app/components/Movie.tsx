@@ -12,7 +12,7 @@ type ComponentProps = {
 function Movie({
     id,
     original_title,
-    overview,
+    // overview,
     image,
     release_date,
 }: ComponentProps) {
@@ -22,7 +22,7 @@ function Movie({
             <Link to={id}>
                 <p className={classes.image}>{image}</p>
                 <p className={classes.original_title}>{original_title}</p>
-                <p className={classes.overview}>{overview}</p>
+                {/* <p className={classes.overview}>{overview}</p> */}
                 <p className={classes.overview}>{release_date}</p>
             </Link>
         </li>

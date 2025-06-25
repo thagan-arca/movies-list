@@ -12,6 +12,7 @@ type MovieProps = {
 function MovieRoute() {
     const data = useLoaderData() as { movie: MovieProps[] };
     const movie = data.movie[1];
+    // console.log("TEST" + movie);
     return (
         <>
             <header className="movie-header font-body">

@@ -1,16 +1,29 @@
 import { useLoaderData } from "react-router-dom";
 
 import Movie from "./Movie";
-import classes from "./MoviesList.module.css";
 
+type MoviesProps = {
+    results: Array<object>;
+    id: string;
+    original_title: string;
+    overview: string;
+    poster_path: string;
+    release_date: string;
+};
 function MoviesList() {
-    const movies = useLoaderData(); // New fetch method
+    const data = useLoaderData() as { results: MoviesProps[] };
+    // console.log(data.results);
+    const movies = data.results; // New fetch method
+    // console.log(movies);
+
+    // TAILWIND
+    // "list-none max-w-4xl mx-auto my-4 py-4 px-0 grid gap-4 grid-cols-3 justify-center"
 
     return (
         <>
-            {Object.keys(movies.results).length > 0 && (
-                <ul className={classes.movies}>
-                    {movies.results.map((movie) => (
+            {Object.keys(movies).length > 0 && (
+                <ul className="list-none max-w-7xl mx-auto my-4 py-4 px-0 grid gap-4 grid-cols-3 justify-center">
+                    {movies.map((movie) => (
                         <Movie
                             key={movie.id}
                             id={movie.id}
@@ -23,6 +36,7 @@ function MoviesList() {
                             }
                             original_title={movie.original_title}
                             release_date={movie.release_date}
+                            overview={movie.overview}
                         />
                     ))}
                 </ul>
