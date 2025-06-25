@@ -9,7 +9,7 @@ function MoviesRoute() {
     const searchQuery = queryParams.get("searchQuery");
 
     return (
-        <div>
+        <div className="font-body">
             <header className="flex items-center justify-between gap-10 sticky top-0 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
                 <Link
                     to=".."

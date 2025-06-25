@@ -17,7 +17,7 @@ export default function IndexRoute() {
                                 <Link to="movies">View Popular Movies</Link>
                             </li>
                             <li className="hover:decoration-dashed hover:decoration-1 hover:underline hover:text-neutral-500">
-                                <Link to="search">Search for Movie</Link>
+                                <Link to="movies">Search for Movie</Link>
                             </li>
                         </ul>
                     </nav>
