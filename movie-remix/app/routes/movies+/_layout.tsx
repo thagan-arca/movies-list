@@ -1,4 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
+import { useNavigate } from "react-router-dom";
 
 import MoviesList from "../../components/MoviesList";
 import { Outlet, Link, Form, useLocation } from "@remix-run/react";
@@ -8,9 +9,17 @@ function MoviesRoute() {
     const queryParams = new URLSearchParams(location.search);
     const searchQuery = queryParams.get("searchQuery");
     const page: number = Number(queryParams.get("page"));
+    console.log("TEST");
+
+    const navigate = useNavigate();
+    // function closeHandler() {
+    //     navigate("..");
+    // }
+
+    // document.getElementById("cancel")?.addEventListener("click", closeHandler);
 
     return (
-        <div className="font-body">
+        <div className="font-body h-full overflow-y-scroll">
             <header className="grid grid-cols-3 justify-items-center items-center justify-between gap-10 sticky top-0 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
                 <Link
                     to=".."
@@ -51,26 +60,27 @@ function MoviesRoute() {
                             </button>
                         </div>
                     </div>
-                    <Link
-                        to="/movies"
+                    <button
+                        id="cancel"
                         type="button"
-                        className="text-neutral-400 hover:text-neutral-500 "
+                        className="text-neutral-400 hover:text-neutral-500"
+                        onMouseDown={() => navigate("..")}
                     >
                         Cancel
-                    </Link>
+                    </button>
                     {/*
                         <button>Submit</button>
                     </p> */}
                 </Form>
             </header>
-            <main className="overflow-x-hidden border border-red-500">
+            <main className="overflow-x-hidden">
                 <MoviesList />
                 <Outlet />
             </main>
-            <footer>
+            <footer className="grid grid-cols-1 justify-items-center items-center justify-between gap-10 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
                 <Link
                     to={`/movies?page=${page + 1}`}
-                    className="flex justify-self-end"
+                    className="flex justify-self-end my-2 mx-2"
                 >
                     Next Page
                 </Link>

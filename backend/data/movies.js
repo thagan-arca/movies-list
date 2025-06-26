@@ -10,7 +10,7 @@ const getStoredMovies = async (req, res) => {
     const queryParams = new URL("https://localhost/" + req.originalUrl)
         .searchParams;
     const page = Number(queryParams.get("page"));
-    console.log(page);
+    // console.log(page);
     if (page) {
         // console.log(req.params.page);
         url = "https://api.themoviedb.org/3/discover/movie?page=" + page; // needs updated to retrieve all or each time a new page is loaded the next page on TMDB API is fetched

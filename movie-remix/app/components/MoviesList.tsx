@@ -1,4 +1,4 @@
-import { useLoaderData, useLocation } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
 import Movie from "./Movie";
 
@@ -12,17 +12,17 @@ type MoviesProps = {
 };
 function MoviesList() {
     const data = useLoaderData() as { results: MoviesProps[] };
-    console.log("DATA:", data);
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const searchQuery = queryParams.get("searchQuery");
-    const page: number = Number(queryParams.get("page"));
+    // console.log("DATA:", data);
+    // const location = useLocation();
+    // const queryParams = new URLSearchParams(location.search);
+    // const searchQuery = queryParams.get("searchQuery");
+    // const page: number = Number(queryParams.get("page"));
 
-    if (page != 1 && !searchQuery) {
-        console.log("This page should have other movies displayed.");
-        // const newData = useLoaderData();
-        // const movies = data
-    }
+    // if (page != 1 && !searchQuery) {
+    //     console.log("This page should have other movies displayed.");
+    //     // const newData = useLoaderData();
+    //     // const movies = data
+    // }
     // console.log(data.results);
     const movies = data.results; // New fetch method
     // console.log(movies);
@@ -33,7 +33,7 @@ function MoviesList() {
     return (
         <>
             {Object.keys(movies).length > 0 && (
-                <ul className="list-none w-full mx-auto my-4 py-4 px-0 grid gap-4 grid-cols-3 justify-center">
+                <ul className="list-none max-w-7xl mx-auto my-4 py-4 px-0 grid gap-4 grid-cols-3 justify-center">
                     {movies.map((movie) => (
                         <Movie
                             key={movie.id}
