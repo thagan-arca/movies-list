@@ -5,6 +5,7 @@ const {
     getMovie,
     searchMovie,
     storeMovies,
+    getTrueStoredMovies,
 } = require("./data/movies");
 const app = express();
 
@@ -31,15 +32,24 @@ app.get("/", (req, res, next) => {
 });
 
 app.get("/movies", async (req, res) => {
-    const storedMovies = await getStoredMovies(req, res);
+    let storedMovies = await getTrueStoredMovies(req, res);
+    console.log(req.params.page, storeMovies.page);
+    if (Number(req.params.page) === storedMovies.page) {
+        console.log("TEST?");
+        res.json({ storedMovies });
+    }
+    storedMovies = await getStoredMovies(req, res);
     // await new Promise((resolve, reject) => setTimeout(() => resolve(), 1500)); // Adds a delay in retrieving data in json file
     res.json({ storedMovies });
     storeMovies(storedMovies);
 });
 
-app.get("/movies/:id", async (req, res) => {
-    const storedMovies = await getStoredMovies(req, res);
+app.get("/movies/:id/", async (req, res) => {
+    // const storedMovies = await getStoredMovies(req, res);
+    // console.log("Standard get ran");
     // console.log("Stored movies:", Object.entries(storedMovies.results));
+
+    const storedMovies = await getStoredMovies(req, res);
     try {
         // checks local DB for data
         const movie = Object.entries(storedMovies.results).find(
@@ -56,6 +66,7 @@ app.get("/movies/:id", async (req, res) => {
         // console.log("Movie has been assigned in catch: " + movie);
         res.json({ movie });
     }
+
     // const movie = Object.values(storedMovies).find(
     //   (movie) => movie.id === req.params.id
     // );
@@ -72,6 +83,20 @@ app.get("/search/:title", async (req, res) => {
     //     message: `Search for movie which includes ${req.params.title}`,
     // });
 });
+
+// app.get("/testMovies/:page", async (req, res) => {
+//     // console.log(req.params);
+//     const movies = await getTrueStoredMovies(req, res);
+//     console.log(req.params.page, movies.page);
+//     if (Number(req.params.page) === movies.page) {
+//         console.log("TEST?");
+//         res.json({ movies });
+//     } else {
+//         console.log("HUH");
+//         const movies = await getStoredMovies(req, res);
+//         res.json({ movies });
+//     }
+// });
 
 // app.post('/movies', async (req, res) => {
 //   const existingMovies = await getStoredMovies();

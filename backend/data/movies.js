@@ -5,6 +5,13 @@ const BEARER_TOKEN = process.env.BEARER_TOKEN || "No Key";
 // console.log(BEARER_TOKEN);
 
 const getStoredMovies = async (req, res) => {
+    // const rawFileContent = await fs.readFile("movies.json", {
+    //     encoding: "utf-8",
+    // });
+    // const data = JSON.parse(rawFileContent);
+    // const storedMovies = data.movies ?? [];
+    // return storedMovies;
+
     let url = "https://api.themoviedb.org/3/discover/movie";
     // console.log(req);
     const queryParams = new URL("https://localhost/" + req.originalUrl)
@@ -49,6 +56,15 @@ function storeMovies(movies) {
         "movies.json",
         JSON.stringify({ movies: movies || [] })
     );
+}
+
+async function getTrueStoredMovies() {
+    const rawFileContent = await fs.readFile("movies.json", {
+        encoding: "utf-8",
+    });
+    const data = JSON.parse(rawFileContent);
+    const storedMovies = data.movies ?? [];
+    return storedMovies;
 }
 
 const searchMovie = async (req, res) => {
@@ -99,11 +115,12 @@ const getMovie = async (req, res) => {
     }
 };
 
-// movies = getStoredMovies();
+// movies = getTrueStoredMovies();
 // console.log(movies);
 // storeMovies(movies);
 
 exports.getMovie = getMovie;
 exports.searchMovie = searchMovie;
 exports.getStoredMovies = getStoredMovies;
+exports.getTrueStoredMovies = getTrueStoredMovies;
 exports.storeMovies = storeMovies;

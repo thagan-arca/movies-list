@@ -10,7 +10,7 @@ function MoviesRoute() {
     const searchQuery = queryParams.get("searchQuery");
     const page: number = Number(queryParams.get("page"));
 
-    console.log(page);
+    // console.log(page);
 
     // const navigate = useNavigate();
     // function closeHandler() {
@@ -117,15 +117,24 @@ export default MoviesRoute;
 
 export async function loader({ request }: LoaderFunctionArgs) {
     const queryParams = new URL(request.url).searchParams;
-    const searchQuery = queryParams.get("searchQuery");
+    // const searchQuery = queryParams.get("searchQuery");
     const page: number = Number(queryParams.get("page"));
-    console.log("TEST");
-    if (searchQuery) {
+    console.log(page);
+    // if (searchQuery) {
+    //     const response = await fetch(
+    //         "http://localhost:8080/search/" + searchQuery
+    //     );
+    //     const resData = await response.json();
+    //     return resData.movies;
+    // }
+
+    if (page) {
         const response = await fetch(
-            "http://localhost:8080/search/" + searchQuery
+            `http://localhost:8080/movies?page=${page}`
         );
         const resData = await response.json();
-        return resData.movies;
+        // console.log("THIS", resData.storedMovies);
+        return resData.storedMovies;
     }
 
     const response = await fetch(`http://localhost:8080/movies?page=${page}`);
