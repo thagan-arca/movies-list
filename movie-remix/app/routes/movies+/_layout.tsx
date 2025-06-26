@@ -1,25 +1,36 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { useNavigate } from "react-router-dom";
 
 import MoviesList from "../../components/MoviesList";
 import { Outlet, Link, Form, useLocation } from "@remix-run/react";
+// import { useState } from "react";
 
 function MoviesRoute() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const searchQuery = queryParams.get("searchQuery");
     const page: number = Number(queryParams.get("page"));
+
     console.log(page);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     // function closeHandler() {
-    //     navigate("..");
+    //     // navigate("..");
+    //     console.log("CLICK");
     // }
+
+    // function testButton(e) {
+    //     e.preventDefault();
+    //     console.log("CLICKED");
+    // }
+
+    // const testButton = () => {
+    //     alert("TEST BUTTON");
+    // };
 
     // document.getElementById("cancel")?.addEventListener("click", closeHandler);
 
     return (
-        <div className="font-body h-full overflow-y-scroll">
+        <div className="font-body w-full h-full overflow-y-scroll">
             <header className="grid grid-cols-3 justify-items-center items-center justify-between gap-10 sticky top-0 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
                 <Link
                     to=".."
@@ -60,53 +71,44 @@ function MoviesRoute() {
                             </button>
                         </div>
                     </div>
-                    <button
-                        id="cancel"
-                        type="button"
+                    <Link
+                        to={`/movies?page=1`}
                         className="text-neutral-400 hover:text-neutral-500"
-                        onMouseDown={() => navigate("..")}
                     >
                         Cancel
-                    </button>
+                    </Link>
                     {/*
                         <button>Submit</button>
                     </p> */}
                 </Form>
+                {/* <button // unknown why this isn't working
+                    className="text-neutral-400 hover:text-neutral-500"
+                    onClick={testButton}
+                >
+                    Cancel
+                </button> */}
             </header>
             <main className="overflow-x-hidden">
                 <MoviesList />
                 <Outlet />
             </main>
 
-            {/* 2 different situations needed because previous page will not be available on page=1 and if it is applied to just Link then "Next Page" is in middle of screen. */}
-            {page === (1 || 0) && (
-                <footer className="grid grid-cols-1 justify-between gap-10 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
-                    <Link
-                        to={`/movies?page=${page + 1}`}
-                        className="flex justify-self-end m-10 text-neutral-400 hover:text-neutral-500"
-                    >
-                        Next Page
-                    </Link>
-                </footer>
-            )}
-
-            {page !== (1 || 0) && (
-                <footer className="grid grid-cols-2 justify-between gap-10 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
+            <footer className="flex gap-10 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
+                {page > 1 && (
                     <Link
                         to={`/movies?page=${page - 1}`}
                         className="flex justify-self-start m-10 text-neutral-400 hover:text-neutral-500"
                     >
                         Previous Page
                     </Link>
-
-                    <Link
-                        to={`/movies?page=${page + 1}`}
-                        className="flex justify-self-end m-10 text-neutral-400 hover:text-neutral-500"
-                    >
-                        Next Page
-                    </Link>
-                </footer>
-            )}
+                )}
+                <Link
+                    to={`/movies?page=${page + 1}`}
+                    className="justify-self-end ml-auto m-10 text-neutral-400 hover:text-neutral-500"
+                >
+                    Next Page
+                </Link>
+            </footer>
         </div>
     );
 }
