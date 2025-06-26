@@ -9,7 +9,7 @@ function MoviesRoute() {
     const queryParams = new URLSearchParams(location.search);
     const searchQuery = queryParams.get("searchQuery");
     const page: number = Number(queryParams.get("page"));
-    console.log("TEST");
+    console.log(page);
 
     const navigate = useNavigate();
     // function closeHandler() {
@@ -77,14 +77,36 @@ function MoviesRoute() {
                 <MoviesList />
                 <Outlet />
             </main>
-            <footer className="grid grid-cols-1 justify-items-center items-center justify-between gap-10 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
-                <Link
-                    to={`/movies?page=${page + 1}`}
-                    className="flex justify-self-end my-2 mx-2"
-                >
-                    Next Page
-                </Link>
-            </footer>
+
+            {/* 2 different situations needed because previous page will not be available on page=1 and if it is applied to just Link then "Next Page" is in middle of screen. */}
+            {page === (1 || 0) && (
+                <footer className="grid grid-cols-1 justify-between gap-10 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
+                    <Link
+                        to={`/movies?page=${page + 1}`}
+                        className="flex justify-self-end m-10 text-neutral-400 hover:text-neutral-500"
+                    >
+                        Next Page
+                    </Link>
+                </footer>
+            )}
+
+            {page !== (1 || 0) && (
+                <footer className="grid grid-cols-2 justify-between gap-10 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl">
+                    <Link
+                        to={`/movies?page=${page - 1}`}
+                        className="flex justify-self-start m-10 text-neutral-400 hover:text-neutral-500"
+                    >
+                        Previous Page
+                    </Link>
+
+                    <Link
+                        to={`/movies?page=${page + 1}`}
+                        className="flex justify-self-end m-10 text-neutral-400 hover:text-neutral-500"
+                    >
+                        Next Page
+                    </Link>
+                </footer>
+            )}
         </div>
     );
 }
@@ -95,6 +117,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     const queryParams = new URL(request.url).searchParams;
     const searchQuery = queryParams.get("searchQuery");
     const page: number = Number(queryParams.get("page"));
+    console.log("TEST");
     if (searchQuery) {
         const response = await fetch(
             "http://localhost:8080/search/" + searchQuery

@@ -34,6 +34,7 @@ app.get("/movies", async (req, res) => {
     const storedMovies = await getStoredMovies(req, res);
     // await new Promise((resolve, reject) => setTimeout(() => resolve(), 1500)); // Adds a delay in retrieving data in json file
     res.json({ storedMovies });
+    storeMovies(storedMovies);
 });
 
 app.get("/movies/:id", async (req, res) => {

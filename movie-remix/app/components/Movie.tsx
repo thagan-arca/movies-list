@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // import classes from "./Movie.module.css";
 
 type ComponentProps = {
@@ -16,14 +16,17 @@ function Movie({
     image,
     release_date,
 }: ComponentProps) {
-    //   console.log(id, original_title, overview);
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const page: number = Number(queryParams.get("page"));
+
     return (
         <li
             className={
                 "bg-[hsl(0_0%_10%)] rounded-lg shadow-normal animate-entry list-none my-4 mx-auto p-4 grid gap-4 grid-cols-1 justify-center w-[25rem]"
             }
         >
-            <Link to={`/movies/${id}`} className="no-underline">
+            <Link to={`./${id}?page=${page}`} className="no-underline">
                 <p className="justify-center">{image}</p>
                 <p className="text-xl text-[#dddddd] m-0 uppercase font-body mt-3">
                     {original_title}
