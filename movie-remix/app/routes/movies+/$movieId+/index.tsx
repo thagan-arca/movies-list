@@ -3,6 +3,7 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 // import Movie from "../../../components/Movie";
 import { Link } from "react-router-dom";
 import Modal from "../../../components/Modal";
+import { useState } from "react";
 
 type MovieProps = {
     id: string;
@@ -15,43 +16,55 @@ function MovieRoute() {
     const data = useLoaderData() as { movie: MovieProps };
     console.log("Data:", data);
     const movie = data.movie;
+
+    const [modalIsVisible, setModalIsVisible] = useState(true);
+
+    function hideModalHandler() {
+        setModalIsVisible(false);
+    }
+
     return (
-        <Modal>
-            <header className="grid justify-items-center grid-cols-3 gap-0 sticky top-0 z-10 backdrop-brightness-50 backdrop-opacity-95 backdrop-blur-2xl font-body p-4 w-screen">
-                <Link
-                    to="/movies?page=1"
-                    className="no-underline mx-24  text-neutral-400 hover:text-neutral-500 mr-auto"
-                >
-                    <h1 className="text-4xl/10">Back</h1>
-                </Link>
-                <h1 className="text-4xl/10">{movie.original_title}</h1>
-            </header>
-            <div>
-                <div
-                    className={
-                        "bg-[hsl(0_0%_10%)] rounded-lg shadow-normal animate-entry my-4 mx-auto p-4 grid gap-4 grid-cols-3 grid-flow-dense justify-center w-3/4"
-                    }
-                >
-                    <p className="justify-self-start max-w-[600px]">
-                        {
-                            <img
-                                alt={movie.poster_path}
-                                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
-                            />
-                        }
-                    </p>
-                    <div className="justify-start col-span-2 z-10 font-body">
-                        <p className="text-xl text-[#dddddd] m-0 uppercase">
-                            {movie.original_title}
-                        </p>
-                        <p className="italic text-[0.8rem] text-[#b0b0b0] whitespace-pre-wrap">
-                            {movie.release_date}
-                        </p>
-                        <p className="mt-4 text-white">{movie.overview}</p>
+        <>
+            {modalIsVisible && (
+                <Modal onClose={hideModalHandler}>
+                    <div>
+                        <div
+                            className={
+                                "bg-[hsl(0_0%_10%)] rounded-lg shadow-normal my-4 mx-auto p-4 grid gap-4 grid-cols-3 grid-flow-dense justify-center w-full"
+                            }
+                        >
+                            <p className="justify-self-start max-w-[600px]">
+                                {
+                                    <img
+                                        alt={movie.poster_path}
+                                        src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
+                                    />
+                                }
+                            </p>
+                            <div className="justify-start col-span-2 z-10 font-body">
+                                <p className="text-xl text-[#dddddd] m-0 uppercase">
+                                    {movie.original_title}
+                                </p>
+                                <p className="italic text-[0.8rem] text-[#b0b0b0] whitespace-pre-wrap">
+                                    {movie.release_date}
+                                </p>
+                                <p className="mt-4 text-white">
+                                    {movie.overview}
+                                </p>
+                                <div className="grid">
+                                    <Link
+                                        to="/movies?page=1"
+                                        className="no-underline text-neutral-400 hover:text-neutral-500 absolute bottom-8 right-4"
+                                    >
+                                        <h1 className="text-4xl/10">Back</h1>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </Modal>
+                </Modal>
+            )}
+        </>
     );
 }
 

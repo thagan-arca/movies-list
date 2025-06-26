@@ -3,7 +3,13 @@
 
 import { ReactNode } from "react";
 
-function Modal({ children }: { children: ReactNode }) {
+function Modal({
+    children,
+    onClose,
+}: {
+    children: ReactNode;
+    onClose?: () => void;
+}) {
     // const navigate = useNavigate();
 
     // function closeHandler() {
@@ -14,6 +20,14 @@ function Modal({ children }: { children: ReactNode }) {
         <div
             className="fixed z-10 overflow-y-auto top-0 w-full left-0"
             id="modal"
+            role="button"
+            tabIndex={0}
+            onClick={onClose}
+            onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    onClose && onClose();
+                }
+            }}
         >
             <div className="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                 <div className="fixed inset-0 transition-opacity">
@@ -23,7 +37,7 @@ function Modal({ children }: { children: ReactNode }) {
                     &#8203;
                 </span>
                 <div
-                    className="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                    className="inline-block align-center rounded-lg text-left overflow-hidden transform transition-all sm:my-9 sm:align-middle sm:max-w-screen-xl sm:w-full"
                     role="dialog"
                     aria-modal="true"
                     aria-labelledby="modal-headline"
