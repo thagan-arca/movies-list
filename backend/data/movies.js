@@ -5,19 +5,34 @@ const BEARER_TOKEN = process.env.BEARER_TOKEN || "No Key";
 // console.log(BEARER_TOKEN);
 
 const getStoredMovies = async (req, res) => {
-    // const rawFileContent = await fs.readFile("movies.json", {
-    //     encoding: "utf-8",
-    // });
-    // const data = JSON.parse(rawFileContent);
-    // const storedMovies = data.movies ?? [];
-    // return storedMovies;
-
-    let url = "https://api.themoviedb.org/3/discover/movie";
     // console.log(req);
     const queryParams = new URL("https://localhost/" + req.originalUrl)
         .searchParams;
     const page = Number(queryParams.get("page"));
+    console.log(queryParams);
+    try {
+        const rawFileContent = await fs.readFile("movies.json", {
+            encoding: "utf-8",
+        });
+        const data = JSON.parse(rawFileContent);
+        const storedMovies = data.movies ?? [];
+        // console.log(storedMovies);
+        if (storedMovies) {
+            if (page === storedMovies.page) {
+                console.log("RETRIEVED FROM JSON FILE");
+                return storedMovies;
+            }
+        }
+    } catch (err) {
+        console.error("Error fetching data:", err);
+    }
+
+    console.log("FETCHING FROM TMDB");
+
+    let url = "https://api.themoviedb.org/3/discover/movie";
+
     // console.log(page);
+    // needs to be changed as page will always be available
     if (page) {
         // console.log(req.params.page);
         url = "https://api.themoviedb.org/3/discover/movie?page=" + page; // needs updated to retrieve all or each time a new page is loaded the next page on TMDB API is fetched
@@ -58,14 +73,14 @@ function storeMovies(movies) {
     );
 }
 
-async function getTrueStoredMovies() {
-    const rawFileContent = await fs.readFile("movies.json", {
-        encoding: "utf-8",
-    });
-    const data = JSON.parse(rawFileContent);
-    const storedMovies = data.movies ?? [];
-    return storedMovies;
-}
+// async function getTrueStoredMovies() {
+//     const rawFileContent = await fs.readFile("movies.json", {
+//         encoding: "utf-8",
+//     });
+//     const data = JSON.parse(rawFileContent);
+//     const storedMovies = data.movies ?? [];
+//     return storedMovies;
+// }
 
 const searchMovie = async (req, res) => {
     const url =
@@ -96,7 +111,7 @@ const searchMovie = async (req, res) => {
 // /movies/:id
 const getMovie = async (req, res) => {
     const url = "https://api.themoviedb.org/3/movie/" + req.params.id;
-    // console.log("Movie ID:", req.params.id);
+    console.log(url);
     const options = {
         method: "GET",
         headers: {
@@ -122,5 +137,5 @@ const getMovie = async (req, res) => {
 exports.getMovie = getMovie;
 exports.searchMovie = searchMovie;
 exports.getStoredMovies = getStoredMovies;
-exports.getTrueStoredMovies = getTrueStoredMovies;
+// exports.getTrueStoredMovies = getTrueStoredMovies;
 exports.storeMovies = storeMovies;

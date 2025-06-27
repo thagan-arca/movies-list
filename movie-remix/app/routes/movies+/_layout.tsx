@@ -102,12 +102,24 @@ function MoviesRoute() {
                         Previous Page
                     </Link>
                 )}
-                <Link
-                    to={`/movies?page=${page + 1}`}
-                    className="justify-self-end ml-auto m-10 text-neutral-400 hover:text-neutral-500"
-                >
-                    Next Page
-                </Link>
+                {searchQuery && (
+                    <Link
+                        to={`/movies?searchQuery=${searchQuery}&page=${
+                            page + 1
+                        }`}
+                        className="justify-self-end ml-auto m-10 text-neutral-400 hover:text-neutral-500"
+                    >
+                        Next Page
+                    </Link>
+                )}
+                {!searchQuery && (
+                    <Link
+                        to={`/movies?page=${page + 1}`}
+                        className="justify-self-end ml-auto m-10 text-neutral-400 hover:text-neutral-500"
+                    >
+                        Next Page
+                    </Link>
+                )}
             </footer>
         </div>
     );
@@ -117,25 +129,25 @@ export default MoviesRoute;
 
 export async function loader({ request }: LoaderFunctionArgs) {
     const queryParams = new URL(request.url).searchParams;
-    // const searchQuery = queryParams.get("searchQuery");
+    const searchQuery = queryParams.get("searchQuery");
     const page: number = Number(queryParams.get("page"));
-    console.log(page);
-    // if (searchQuery) {
-    //     const response = await fetch(
-    //         "http://localhost:8080/search/" + searchQuery
-    //     );
-    //     const resData = await response.json();
-    //     return resData.movies;
-    // }
-
-    if (page) {
+    // console.log(page);
+    if (searchQuery) {
         const response = await fetch(
-            `http://localhost:8080/movies?page=${page}`
+            "http://localhost:8080/search/" + searchQuery
         );
         const resData = await response.json();
-        // console.log("THIS", resData.storedMovies);
-        return resData.storedMovies;
+        return resData.movies;
     }
+
+    // if (page) {
+    //     const response = await fetch(
+    //         `http://localhost:8080/movies?page=${page}`
+    //     );
+    //     const resData = await response.json();
+    //     // console.log("THIS", resData.storedMovies);
+    //     return resData.storedMovies;
+    // }
 
     const response = await fetch(`http://localhost:8080/movies?page=${page}`);
     const resData = await response.json();
